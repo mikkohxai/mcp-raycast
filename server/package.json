@@ -1,0 +1,19 @@
+{
+  "name": "raycast-mcp-server",
+  "version": "1.0.0",
+  "type": "module",
+  "bin": {
+    "raycast-mcp-server": "index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "node --test tests/tools/ping.test.js tests/tools/health_check.test.js tests/lib/logger.test.js tests/lib/timeout.test.js",
+    "lint": "eslint src/ index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.27.1"
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0"
+  }
+}
