@@ -8,6 +8,7 @@ import {
 import { config } from "./src/config.js";
 import { logger } from "./src/lib/logger.js";
 import { mcpError } from "./src/lib/errors.js";
+import { withTimeout } from "./src/lib/timeout.js";
 import { ping, pingTool } from "./src/tools/ping.js";
 import { healthCheck, healthCheckTool } from "./src/tools/health_check.js";
 
@@ -57,7 +58,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     return mcpError(`Unknown tool: ${name}`);
   }
   try {
-    const result = await handler(params ?? {});
+    const result = await withTimeout(handler(params ?? {}), config.defaultTimeoutMs);
     return truncateResponse(result);
   } catch (err) {
     logger.error(`Tool ${name} threw unexpectedly`, err.message);
